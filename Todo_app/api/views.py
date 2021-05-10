@@ -3,13 +3,14 @@ from rest_framework.views import APIView
 import json
 
 from .models import Author, Tasks
-from .serializers import AuthorCreateSerializers
+from .serializers import AuthorCreateSerializers, AuthorListSerializer
 
 from rest_framework import status
 
 # Create your views here.
 
 
+# view de teste
 class welcome(APIView):
     def get(self, request, format=None):
         content = {"hello": "world"}
@@ -39,5 +40,21 @@ class CreateAuthorView(APIView):
 
 # lista usuarios
 class ListAuthorView(APIView):
-    def get(request):
-        pass
+    def get(selfr, request, format=None):
+        author = Author.objects.all()
+        serializers = AuthorListSerializer(author, many=True)
+
+        return JsonResponse({'Author': serializers.data}, safe=False, status=status.HTTP_200_OK)
+
+# atualiza usuario
+
+
+# deleta usuario
+class DeleteAuthorView(APIView):
+    def delete(self, request, author_id, format=None):
+        author = Author.objects.filter(author_id=author_id)
+        try:
+            author.delete()
+            return JsonResponse({'Deleted': 'author deletado com sucesso'}, safe=False, status=status.HTTP_200_OK)
+        except:
+            return JsonResponse({'ERROR': 'internal server error'}, safe=False, status=status.status.HTTP_500_INTERNAL_SERVER_ERROR)
