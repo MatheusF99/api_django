@@ -24,8 +24,8 @@ class CreateAuthorView(APIView):
 
         try:
             author = Author(
-                author_nick=payload['author_password'],
-                author_email=payload['author_password'],
+                author_nick=payload['author_nick'],
+                author_email=payload['author_email'],
                 author_password=payload['author_password']
             )
 
@@ -35,3 +35,9 @@ class CreateAuthorView(APIView):
             return JsonResponse({'Author': serializers.data}, safe=False, status=status.HTTP_201_CREATED)
         except:
             return JsonResponse({'error': 'erro ao criar o usuario'}, safe=False, status=status.status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# lista usuarios
+class ListAuthorView(APIView):
+    def get(request):
+        pass

@@ -7,3 +7,9 @@ class AuthorCreateSerializers(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ('author_nick', 'author_email', 'author_password')
+
+
+class AuthorListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ('author_id', 'author_nick', 'author_email')

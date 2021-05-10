@@ -14,9 +14,9 @@ class Author(models.Model):
         default=uuid.uuid4,
         editable=False,
         primary_key=True
-    ),
-    author_nick = models.CharField(max_length=100, null=False, unique=False),
-    author_email = models.EmailField(unique=True, null=False),
+    )
+    author_nick = models.CharField(max_length=100, null=False, unique=False)
+    author_email = models.EmailField(unique=True, null=False)
     author_password = models.CharField(max_length=255, null=False)
     create_at = models.DateField(default=timezone.now)
 
