@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(4y+jdgc!2ml=7=(no=p=ncs_xwkk*$du9l9v*7x(qw@yrop9u'
-
+#SECRET_KEY = 'django-insecure-(4y+jdgc!2ml=7=(no=p=ncs_xwkk*$du9l9v*7x(qw@yrop9u'
+SECRET_KEY = 'b1ead149b486450b779124de2598023328064a6ab3467f0ee7e92a876423a45c4bdac0f7e76fa242d04cfec146dcc1a9f1534fe577e07d86185d2d38db2818cd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework_jwt'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,18 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Todo_app.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
 
 TEMPLATES = [
     {
