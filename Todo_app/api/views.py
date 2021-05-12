@@ -21,7 +21,7 @@ class welcome(APIView):
 # criar usuario
 class CreateAuthorView(APIView):
 
-    jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+    jwt_payload_handler = api_settings.
     jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
     def post(self, request, format=None):
