@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 import json
 
 from .models import Author, Tasks
-from .serializers import AuthorCreateSerializers, AuthorListSerializer
+from .serializers import AuthorCreateSerializers, AuthorListSerializer, CreateTaskSerializer
 
 from rest_framework import status
 
@@ -58,3 +58,18 @@ class DeleteAuthorView(APIView):
             return JsonResponse({'Deleted': 'author deletado com sucesso'}, safe=False, status=status.HTTP_200_OK)
         except:
             return JsonResponse({'ERROR': 'internal server error'}, safe=False, status=status.status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# Tasks
+
+
+class CreateTaskView(APIView):
+    def post(self, request, format=None):
+        payload = json.loads(request.body)
+        user = request.user.id
+        print(user, payload)
+
+        # try:
+        #     pass
+        # except:
+        #     pass
+        return user
