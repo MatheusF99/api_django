@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from rest_framework.views import APIView
+from rest_framework_jwt.settings import api_settings
 import json
 
 from .models import Author, Tasks
@@ -19,6 +20,10 @@ class welcome(APIView):
 
 # criar usuario
 class CreateAuthorView(APIView):
+
+    jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+    jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
     def post(self, request, format=None):
         payload = json.loads(request.body)
         print(request)
@@ -32,6 +37,9 @@ class CreateAuthorView(APIView):
 
             author.save()
             serializers = AuthorCreateSerializers(author)
+
+            payloader = jwt_payload_handler(author)
+            token = jwt_encode_handler(payloader)
 
             return JsonResponse({'Author': serializers.data}, safe=False, status=status.HTTP_201_CREATED)
         except:
