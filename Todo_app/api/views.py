@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.http import JsonResponse
+
 from rest_framework.views import APIView
 import json
 
@@ -42,14 +44,21 @@ class CreateAuthorView(APIView):
             author.save()
             serializers = AuthorCreateSerializers(author)
 
-            payloader = jwt_payload_handler(author)
-            token = jwt_encode_handler(payloader)
+            user = User.objects.create_user(
+                username=payload['author_nick'],
+                email=payload['author_email'],
+                password=payload['author_password']
+            )
+            user.save()
 
-            print(token)
+            # payloader = jwt_payload_handler(author)
+            # token = jwt_encode_handler(payloader)
+
+            # print(token)
 
             return JsonResponse({'Author': serializers.data}, safe=False, status=status.HTTP_201_CREATED)
         except:
-            return JsonResponse({'error': 'erro ao criar o usuario'}, safe=False, status=status.status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return JsonResponse({'error': 'erro ao criar o usuario'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # lista usuarios

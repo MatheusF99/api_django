@@ -21,7 +21,7 @@ class Author(models.Model):
     create_at = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return "<author %s>" % self.author_nick
+        return self.author_nick
 
 
 # criando o model de task
@@ -43,5 +43,5 @@ class Tasks(models.Model):
 
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
-    def __repr__(self):
-        return "<Task %s>" % self.id
+    def __str__(self):
+        return self.id
