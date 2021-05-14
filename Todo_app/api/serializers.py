@@ -6,7 +6,7 @@ from .models import Author, Tasks
 class AuthorCreateSerializers(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ('author_nick', 'author_email', 'author_password')
+        fields = ('author_id', 'author_nick', 'author_email')
 
 
 class AuthorListSerializer(serializers.ModelSerializer):

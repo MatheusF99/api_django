@@ -20,10 +20,10 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 # view de teste
 class welcome(APIView):
-    authentication_classes = [JSONWebTokenAuthentication]
 
     def get(self, request, format=None):
-        content = {"hello": "world"}
+        user = request.user.id
+        content = {"hello": user}
         return JsonResponse(content)
 
 
@@ -76,6 +76,7 @@ class ListAuthorView(APIView):
 class DeleteAuthorView(APIView):
     def delete(self, request, author_id, format=None):
         author = Author.objects.filter(author_id=author_id)
+
         try:
             author.delete()
             return JsonResponse({'Deleted': 'author deletado com sucesso'}, safe=False, status=status.HTTP_200_OK)
